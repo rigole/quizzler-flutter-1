@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+ import 'package:flutter/material.dart';
+import 'package:quizzler/quiz_brain.dart';
 
+QuizBrain quizBrain = QuizBrain();
 void main() => runApp(Quizzler());
 
 class Quizzler extends StatelessWidget {
@@ -25,6 +27,9 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
+  int questionNumber =0;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,7 +42,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                  quizBrain.questionBank[questionNumber].questionText,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -61,7 +66,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked true.
+                 bool correctAnswer= quizBrain.questionBank[questionNumber].questionAnswer;
+                 if(correctAnswer == true){
+                   print('correct');
+                 }
+                 else{
+                   print ('not correct');
+                 }
+               setState(() {
+                 questionNumber++;
+               });
               },
             ),
           ),
@@ -79,7 +93,16 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                //The user picked false.
+                bool correctAnswer= quizBrain.questionBank[questionNumber].questionAnswer;
+                if(correctAnswer == false){
+                  print('correct');
+                }
+                else{
+                  print ('not correct');
+                }
+                setState(() {
+                  questionNumber++;
+                });
               },
             ),
           ),
